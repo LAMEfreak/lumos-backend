@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -15,6 +15,14 @@ module.exports = {
       target: {
         type: Sequelize.INTEGER,
       },
+      startup_id: {
+        type: Sequelize.INTEGER,
+        // define the foreign key in schema
+        references: {
+          model: { tableName: "startups" },
+          key: "id",
+        },
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -26,6 +34,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('rounds');
-  }
+    await queryInterface.dropTable("rounds");
+  },
 };

@@ -7,18 +7,21 @@ module.exports = {
       {
         name: "Gryffindor",
         email: "123@live.com",
+        auth0_id: "123",
         created_at: new Date(),
         updated_at: new Date(),
       },
       {
         name: "Syltherin",
         email: "456@live.com",
+        auth0_id: "456",
         created_at: new Date(),
         updated_at: new Date(),
       },
       {
         name: "Hufflepuff",
         email: "789@live.com",
+        auth0_id: "789",
         created_at: new Date(),
         updated_at: new Date(),
       },
