@@ -6,18 +6,9 @@ class StartupsRouter {
     this.controller = controller;
   }
   routes() {
-    router.get(
-      "/:startupId",
-      this.controller.getOne.bind(this.controller)
-    );
-    router.post(
-      "/",
-      this.controller.addOne.bind(this.controller)
-    );
-    router.put(
-      "/:startupId",
-      this.controller.editOne.bind(this.controller)
-    );
+    router.get("/:startupId", this.controller.getOne.bind(this.controller));
+    router.post("/", this.controller.addOne.bind(this.controller));
+    router.put("/:startupId", this.controller.editOne.bind(this.controller));
     // No DELETE user/startup for now
 
     // Funding rounds
@@ -39,6 +30,27 @@ class StartupsRouter {
     );
     router.delete(
       "/:startupId/rounds/:roundId",
+      this.controller.deleteOne.bind(this.controller)
+    );
+
+    router.get(
+      "/:startupId/rounds/:roundId/investors",
+      this.controller.getAll.bind(this.controller)
+    );
+    router.get(
+      "/:startupId/rounds/:roundId/investors/:investorId",
+      this.controller.getOne.bind(this.controller)
+    );
+    router.post(
+      "/:startupId/rounds/:roundId/investors",
+      this.controller.addOne.bind(this.controller)
+    );
+    router.put(
+      "/:startupId/rounds/:roundId/investors/:investorId",
+      this.controller.editOne.bind(this.controller)
+    );
+    router.delete(
+      "/:startupId/rounds/:roundId/investors/:investorId",
       this.controller.deleteOne.bind(this.controller)
     );
     return router;

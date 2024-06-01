@@ -6,24 +6,12 @@ class InvestorsRouter {
     this.controller = controller;
   }
   routes() {
-    router.get(
-      "/investors",
-      this.controller.getAll.bind(this.controller)
-    );
-    router.get(
-      "/investors/:investorId",
-      this.controller.getOne.bind(this.controller)
-    );
-    router.post(
-      "/investors",
-      this.controller.addOne.bind(this.controller)
-    );
-    router.put(
-      "/investors/:investorId",
-      this.controller.editOne.bind(this.controller)
-    );
+    router.get("/", this.controller.getAll.bind(this.controller));
+    router.get("/:investorId", this.controller.getOne.bind(this.controller));
+    router.post("/", this.controller.addOne.bind(this.controller));
+    router.put("/:investorId", this.controller.editOne.bind(this.controller));
     router.delete(
-      "/investors/:investorId",
+      "/:investorId",
       this.controller.deleteOne.bind(this.controller)
     );
     return router;
