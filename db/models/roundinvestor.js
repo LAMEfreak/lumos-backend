@@ -1,30 +1,27 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Round extends Model {
+  class RoundInvestor extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.startup);
-      this.belongsToMany(models.investor, {
-        through: "round_investors",
-      });
-      this.hasMany(models.roundinvestor);
+      this.belongsTo(models.round);
+      this.belongsTo(models.investor);
     }
   }
-  Round.init(
+  RoundInvestor.init(
     {
-      stage: DataTypes.STRING,
-      target: DataTypes.NUMBER,
+      interest: DataTypes.INTEGER,
+      commitment_amount: DataTypes.INTEGER,
     },
     {
       sequelize,
-      modelName: "round",
+      modelName: "roundinvestor",
       underscored: true,
     }
   );
-  return Round;
+  return RoundInvestor;
 };

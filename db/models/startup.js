@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.hasMany(models.round);
+      this.belongsToMany(models.investor, {
+        through: "startup_investors",
+      });
     }
   }
   Startup.init(
