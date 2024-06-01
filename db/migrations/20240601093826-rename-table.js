@@ -11,8 +11,8 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     await queryInterface.renameTable(
-      "person_personalities",
-      "startup_investors"
+      "startup_investors",
+      "person_personalities"
     );
   },
 };

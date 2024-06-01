@@ -6,7 +6,6 @@ class InvestorsRouter {
     this.controller = controller;
   }
   routes() {
-    // we will insert routes into here later on
     router.get(
       "/investors",
       this.controller.getAll.bind(this.controller)

@@ -18,6 +18,7 @@ class StartupsRouter {
       "/:startupId",
       this.controller.editOne.bind(this.controller)
     );
+    // No DELETE user/startup for now
 
     // Funding rounds
     router.get(
