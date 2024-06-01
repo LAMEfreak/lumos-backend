@@ -1,17 +1,25 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+const { auth } = require("express-oauth2-jwt-bearer");
+
+// Authorization middleware. When used, the Access Token must
+// exist and be verified against the Auth0 JSON Web Key Set.
+const checkJwt = auth({
+  audience: "https://lumos/api",
+  issuerBaseURL: `https://dev-wnqp04xircjjnguk.us.auth0.com/`,
+});
 
 // importing Routers that define the url endpoints for the frontend to consume
-import InvestorsRouter from "./routers/investorsRouter";
-import StartupsRouter from "./routers/startupsRouter";
+const InvestorsRouter = require("./routers/investorsRouter");
+const StartupsRouter = require("./routers/startupsRouter");
 
 // importing Controllers that query the Sequelize data
-import StartupsController from "./controllers/startupsController";
-import InvestorsController from "./controllers/investorsController";
+const StartupsController = require("./controllers/startupsController");
+const InvestorsController = require("./controllers/investorsController");
 
 // importing Sequelize models
-import db from "./db/models/index";
+const db = require("./db/models/index");
 const { startup, investor, round, roundinvestor } = db;
 
 // initialize Controllers -> note the lowercase for the first word
@@ -27,8 +35,14 @@ const startupsController = new StartupsController(
 const investorsController = new InvestorsController(investor);
 
 // initialize Routers
-const investorsRouter = new InvestorsRouter(InvestorsController).routes();
-const startupsRouter = new StartupsRouter(StartupsController).routes();
+const investorsRouter = new InvestorsRouter(
+  investorsController,
+  checkJwt
+).routes();
+const startupsRouter = new StartupsRouter(
+  startupsController,
+  checkJwt
+).routes();
 
 const PORT = process.env.PORT;
 const app = express();
