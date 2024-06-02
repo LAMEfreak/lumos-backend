@@ -6,14 +6,20 @@ class StartupsController extends BaseController {
   }
 
   async addOne(req, res) {
-    console.log(req.body);
     const { email, auth0Id } = req.body;
     try {
-      const newStartup = await this.model.create({
-        email,
-        auth0Id,
+      const existingStartup = await this.model.findOne({
+        where: { auth0_id: auth0Id },
       });
-      return res.json(newStartup);
+      if (!existingStartup) {
+        const newStartup = await this.model.create({
+          email,
+          auth0Id,
+        });
+        return res.json(newStartup);
+      } else {
+        return res.json(`Record already exists.`);
+      }
     } catch (err) {
       return res.status(400).json({ error: true, msg: err });
     }

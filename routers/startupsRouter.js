@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const checkJwt = require("../utilities");
 
 class StartupsRouter {
   constructor(controller, checkJwt) {
@@ -8,7 +9,7 @@ class StartupsRouter {
   }
   routes() {
     // router.get("/:startupId", this.controller.getOne.bind(this.controller));
-    router.post("/", this.controller.addOne.bind(this.controller));
+    router.post("/", checkJwt, this.controller.addOne.bind(this.controller));
     // router.put("/:startupId", this.controller.editOne.bind(this.controller));
     // No DELETE user/startup for now
 
