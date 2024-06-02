@@ -3,12 +3,16 @@ const router = express.Router();
 const checkJwt = require("../utilities");
 
 class InvestorsRouter {
-  constructor(controller) {
+  constructor(controller, checkJwt) {
     this.controller = controller;
+    this.checkJwt = checkJwt;
   }
   routes() {
-    // Get all investors from the investors table. Not likely to be used
-    // router.get("/", checkJwt, this.controller.getAll.bind(this.controller));
+    router.get(
+      "/:startupId",
+      checkJwt,
+      this.controller.getAll.bind(this.controller)
+    );
     router.get(
       "/:investorId",
       checkJwt,

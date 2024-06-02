@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       this.belongsToMany(models.round, {
         through: "round_investors",
+        onDelete: "CASCADE",
       });
       this.hasMany(models.roundinvestor);
     }

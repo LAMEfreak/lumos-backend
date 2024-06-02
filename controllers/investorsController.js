@@ -1,12 +1,15 @@
 const BaseController = require("./baseController");
 
 class InvestorsController extends BaseController {
-  constructor(model) {
+  constructor(model, startupModel) {
     super(model);
+    this.startupModel = startupModel;
   }
 
   async addOne(req, res) {
-    const { name, type, company, stage, email } = req.body;
+    const { name, type, company, stage, email, auth0Id } = req.body;
+    console.log("auth0Id:", auth0Id);
+
     try {
       const newInvestor = await this.model.create({
         name,
@@ -15,23 +18,32 @@ class InvestorsController extends BaseController {
         stage,
         email,
       });
+
+      // add record to startup_investor junction table to create association
+      const startup = await this.startupModel.findOne({
+        where: { auth0_id: auth0Id },
+      });
+      const investor = await this.model.findByPk(newInvestor.dataValues.id);
+      await startup.addInvestor(investor);
+
       return res.json(newInvestor);
     } catch (err) {
       return res.status(400).json({ error: true, msg: err });
     }
   }
-  
-  // Get all investors from the investors table. Not likely to be used
-  /*
-    async getAll(req, res) {
-      try {
-        const result = await this.model.findAll();
-        return res.json(result);
-      } catch (err) {
-        return res.status(400).json({ error: true, msg: err });
-      }
+
+  async getAll(req, res) {
+    const { startupId } = req.params;
+    const startup = await this.startupModel.findOne({
+      where: { auth0_id: startupId },
+    });
+    try {
+      const investors = await startup.getInvestors();
+      return res.json(investors);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err });
     }
-  */
+  }
 
   async getOne(req, res) {
     const { investorId } = req.params;

@@ -24,7 +24,7 @@ const startupsController = new StartupsController(
   investor,
   roundinvestor
 );
-const investorsController = new InvestorsController(investor);
+const investorsController = new InvestorsController(investor, startup);
 
 // initialize Routers
 const investorsRouter = new InvestorsRouter(investorsController).routes();

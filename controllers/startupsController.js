@@ -5,7 +5,20 @@ class StartupsController extends BaseController {
     super(model);
   }
 
-  async addOne(req, res) {
+  async getOneStartup(req, res) {
+    const { startupId } = req.params;
+    console.log(req.params);
+    try {
+      const result = await this.model.findOne({
+        where: { auth0_id: startupId },
+      });
+      return res.json(result);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err });
+    }
+  }
+
+  async addOneStartup(req, res) {
     const { email, auth0Id } = req.body;
     try {
       const existingStartup = await this.model.findOne({
