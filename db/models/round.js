@@ -9,8 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.startup);
+      // when deleting a round, delete associated records in round_investor junction table
       this.belongsToMany(models.investor, {
         through: "round_investors",
+        onDelete: "CASCADE",
       });
       this.hasMany(models.roundinvestor);
     }

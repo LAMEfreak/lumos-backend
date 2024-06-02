@@ -53,28 +53,27 @@ class StartupsRouter {
     );
 
     // WHEN ADDING INVESTOR TO A ROUND, ADD RECORD IN ROUND_INVESTOR JUNCTION TABLE
-    // when deleting a round, delete all records in round_investor junction table
     // when removing an ivnestor from a round, delete record in round_investor junction table
 
     // router.get(
-    //   "/:startupId/:roundId/investors",
-    //   this.controller.getAll.bind(this.controller)
+    //   "/:startupId/:roundId/roundInvestors",
+    //   this.controller.getAllRoundInvestors.bind(this.controller)
     // );
     // router.get(
-    //   "/:startupId/:roundId/:investorId",
-    //   this.controller.getOne.bind(this.controller)
+    //   "/:startupId/:roundId/:roundInvestorId",
+    //   this.controller.getOneRoundInvestor.bind(this.controller)
     // );
     // router.post(
-    //   "/:startupId/:roundId/investors",
-    //   this.controller.addOne.bind(this.controller)
+    //   "/:startupId/:roundId/roundInvestors",
+    //   this.controller.addOneRoundInvestor.bind(this.controller)
     // );
     // router.put(
-    //   "/:startupId/:roundId/:investorId",
-    //   this.controller.editOne.bind(this.controller)
+    //   "/:startupId/:roundId/:roundInvestorId",
+    //   this.controller.editOneRoundInvestor.bind(this.controller)
     // );
     // router.delete(
-    //   "/:startupId/rounds/:roundId/:investorId",
-    //   this.controller.deleteOne.bind(this.controller)
+    //   "/:startupId/rounds/:roundId/:roundInvestorId",
+    //   this.controller.deleteOneRoundInvestor.bind(this.controller)
     // );
     return router;
   }

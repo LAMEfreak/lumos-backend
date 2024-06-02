@@ -1,9 +1,10 @@
 const BaseController = require("./baseController");
 
 class StartupsController extends BaseController {
-  constructor(model, roundModel, investor, roundinvestor) {
+  constructor(model, roundModel, roundinvestorModel) {
     super(model);
     this.roundModel = roundModel;
+    this.roundinvestorModel = roundinvestorModel;
   }
 
   async getOneStartup(req, res) {

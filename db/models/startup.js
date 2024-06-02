@@ -8,7 +8,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(models.round);
+      this.hasMany(models.round, {
+        onDelete: "CASCADE",
+      });
       this.belongsToMany(models.investor, {
         through: "startup_investors",
         onDelete: "CASCADE",
