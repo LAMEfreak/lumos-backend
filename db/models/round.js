@@ -19,6 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       stage: DataTypes.STRING,
       target: DataTypes.NUMBER,
+      name: DataTypes.STRING,
+      description: DataTypes.STRING,
     },
     {
       sequelize,

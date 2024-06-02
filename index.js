@@ -39,6 +39,8 @@ app.use(cors());
 // parse JSON bodies of incoming POST requests
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+// weird bug that affects getOne in investorsController
+// app.get("/investors/:investorId", investorsController.getOne);
 
 // Middleware passes request to the appropriate router
 app.use("/startup", startupsRouter);
