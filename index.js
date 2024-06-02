@@ -1,14 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const { auth } = require("express-oauth2-jwt-bearer");
-
-// Authorization middleware. When used, the Access Token must
-// exist and be verified against the Auth0 JSON Web Key Set.
-const checkJwt = auth({
-  audience: "https://lumos/api",
-  issuerBaseURL: `https://dev-wnqp04xircjjnguk.us.auth0.com/`,
-});
 
 // importing Routers that define the url endpoints for the frontend to consume
 const InvestorsRouter = require("./routers/investorsRouter");
@@ -35,14 +27,8 @@ const startupsController = new StartupsController(
 const investorsController = new InvestorsController(investor);
 
 // initialize Routers
-const investorsRouter = new InvestorsRouter(
-  investorsController,
-  checkJwt
-).routes();
-const startupsRouter = new StartupsRouter(
-  startupsController,
-  checkJwt
-).routes();
+const investorsRouter = new InvestorsRouter(investorsController).routes();
+const startupsRouter = new StartupsRouter(startupsController).routes();
 
 const PORT = process.env.PORT;
 const app = express();

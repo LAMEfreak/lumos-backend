@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsToMany(models.startup, {
         through: "startup_investors",
+        onDelete: "CASCADE",
       });
       this.belongsToMany(models.round, {
         through: "round_investors",

@@ -1,24 +1,30 @@
 const express = require("express");
 const router = express.Router();
+const checkJwt = require("../utilities");
 
 class InvestorsRouter {
-  constructor(controller, checkJwt) {
+  constructor(controller) {
     this.controller = controller;
-    this.checkJwt = checkJwt;
   }
   routes() {
-    // router.get("/", this.controller.getAll.bind(this.controller));
-    // router.get("/:investorId", this.controller.getOne.bind(this.controller));
-    router.post(
-      "/",
-      this.checkJwt,
-      this.controller.addOne.bind(this.controller)
+    // Get all investors from the investors table. Not likely to be used
+    // router.get("/", checkJwt, this.controller.getAll.bind(this.controller));
+    router.get(
+      "/:investorId",
+      checkJwt,
+      this.controller.getOne.bind(this.controller)
     );
-    // router.put("/:investorId", this.controller.editOne.bind(this.controller));
-    // router.delete(
-    //   "/:investorId",
-    //   this.controller.deleteOne.bind(this.controller)
-    // );
+    router.post("/", checkJwt, this.controller.addOne.bind(this.controller));
+    router.put(
+      "/:investorId",
+      checkJwt,
+      this.controller.editOne.bind(this.controller)
+    );
+    router.delete(
+      "/:investorId",
+      checkJwt,
+      this.controller.deleteOne.bind(this.controller)
+    );
     return router;
   }
 }
