@@ -20,6 +20,7 @@ class InvestorsController extends BaseController {
       return res.status(400).json({ error: true, msg: err });
     }
   }
+  
   // Get all investors from the investors table. Not likely to be used
   /*
     async getAll(req, res) {

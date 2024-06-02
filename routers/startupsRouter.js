@@ -8,7 +8,7 @@ class StartupsRouter {
   }
   routes() {
     // router.get("/:startupId", this.controller.getOne.bind(this.controller));
-    // router.post("/", this.controller.addOne.bind(this.controller));
+    router.post("/", this.controller.addOne.bind(this.controller));
     // router.put("/:startupId", this.controller.editOne.bind(this.controller));
     // No DELETE user/startup for now
 
