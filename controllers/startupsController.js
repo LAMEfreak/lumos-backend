@@ -43,7 +43,11 @@ class StartupsController extends BaseController {
     const { startupId } = req.params;
     const { name, email, industry } = req.body;
     try {
-      const startupToEdit = await this.model.findByPk(startupId);
+      const startupToEdit = await this.model.findOne({
+        where: {
+          auth0Id: startupId,
+        },
+      });
       if (startupToEdit)
         await startupToEdit.update({
           name,
