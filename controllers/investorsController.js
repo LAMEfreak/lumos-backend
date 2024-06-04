@@ -77,15 +77,21 @@ class InvestorsController extends BaseController {
   async deleteOne(req, res) {
     const { investorId } = req.params;
     try {
-      const result = await this.model.destroy({
-        where: { id: investorId },
-      });
-
-      if (!result) {
-        return res.status(404).json({ error: true, msg: "Investor not found" });
+      const investor = await this.model.findByPk(investorId);
+      if (investor) {
+        // Then, remove the associations in the junction table
+        await investor.setStartups([]);
+        const result = await this.model.destroy({
+          where: { id: investorId },
+        });
+        if (!result) {
+          return res
+            .status(404)
+            .json({ error: true, msg: "Investor not found" });
+        } else {
+          return res.json(`deleted.`);
+        }
       }
-
-      return res.json(`deleted.`);
     } catch (err) {
       return res.status(400).json({ error: true, msg: err });
     }
