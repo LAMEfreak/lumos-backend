@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         through: "round_investors",
         onDelete: "CASCADE",
       });
-      this.hasMany(models.roundinvestor);
+      this.hasMany(models.RoundInvestor, { onDelete: "CASCADE" });
     }
   }
   Investor.init(

@@ -23,10 +23,10 @@ module.exports = {
           key: "id",
         },
       },
-      interest: {
+      raised: {
         type: Sequelize.STRING,
       },
-      commitment_amount: {
+      committed: {
         type: Sequelize.INTEGER,
       },
       created_at: {

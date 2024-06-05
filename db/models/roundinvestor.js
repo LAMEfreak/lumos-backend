@@ -14,12 +14,32 @@ module.exports = (sequelize, DataTypes) => {
   }
   RoundInvestor.init(
     {
-      interest: DataTypes.INTEGER,
-      commitment_amount: DataTypes.INTEGER,
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
+      roundId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: { tableName: "rounds" },
+          key: "id",
+        },
+      },
+      investorId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: { tableName: "investors" },
+          key: "id",
+        },
+      },
+      raised: DataTypes.INTEGER,
+      committed: DataTypes.INTEGER,
     },
     {
       sequelize,
-      modelName: "roundinvestor",
+      modelName: "RoundInvestor",
       underscored: true,
     }
   );

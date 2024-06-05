@@ -1,10 +1,10 @@
 const BaseController = require("./baseController");
 
 class StartupsController extends BaseController {
-  constructor(model, roundModel, roundinvestorModel) {
+  constructor(model, roundModel, RoundInvestorModel) {
     super(model);
     this.roundModel = roundModel;
-    this.roundinvestorModel = roundinvestorModel;
+    this.RoundInvestorModel = RoundInvestorModel;
   }
 
   async getOneStartup(req, res) {
@@ -65,6 +65,7 @@ class StartupsController extends BaseController {
     const startup = await this.model.findOne({
       where: { auth0_id: startupId },
     });
+    console.log(startup);
     try {
       const rounds = await startup.getRounds();
       return res.json(rounds);
@@ -86,6 +87,8 @@ class StartupsController extends BaseController {
   async addOneRound(req, res) {
     const { startupId } = req.params;
     const { name, description, stage, target } = req.body;
+
+    console.log(`here`);
     try {
       const existingStartup = await this.model.findOne({
         where: { auth0_id: startupId },
@@ -134,6 +137,79 @@ class StartupsController extends BaseController {
       if (!result) {
         return res.status(404).json({ error: true, msg: "Round not found" });
       }
+      return res.json(`deleted.`);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err });
+    }
+  }
+
+  async getAllRoundInvestors(req, res) {
+    const { roundId } = req.params;
+    try {
+      const result = await this.RoundInvestorModel.findAll({
+        where: { round_id: roundId },
+      });
+      return res.json(result);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err });
+    }
+  }
+
+  async getOneRoundInvestor(req, res) {
+    const { roundInvestorId } = req.params;
+    try {
+      const result = await this.RoundInvestorModel.findOne({
+        where: { id: roundInvestorId },
+      });
+      return res.json(result);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err });
+    }
+  }
+
+  async addOneRoundInvestor(req, res) {
+    const { raised, committed, roundId, investorId } = req.body;
+
+    console.log(`here`);
+    try {
+      const result = await this.RoundInvestorModel.create({
+        roundId,
+        investorId,
+        raised,
+        committed,
+      });
+      console.log(`there`);
+      return res.json(result);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err });
+    }
+  }
+
+  async editOneRoundInvestor(req, res) {
+    const { roundInvestorId } = req.params;
+    const { raised, committed } = req.body;
+    try {
+      const roundInvestorToEdit = await this.RoundInvestorModel.findByPk(
+        roundInvestorId
+      );
+      if (roundInvestorToEdit) {
+        const editedRoundInvestor = await roundInvestorToEdit.update({
+          raised,
+          committed,
+        });
+        return res.json(editedRoundInvestor);
+      }
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err });
+    }
+  }
+
+  async deleteOneRoundInvestor(req, res) {
+    const { roundInvestorId, roundId } = req.params;
+    try {
+      const result = await this.RoundInvestorModel.destroy({
+        where: { investorId: roundInvestorId, round_id: roundId },
+      });
       return res.json(`deleted.`);
     } catch (err) {
       return res.status(400).json({ error: true, msg: err });

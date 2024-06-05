@@ -12,7 +12,7 @@ const InvestorsController = require("./controllers/investorsController");
 
 // importing Sequelize models
 const db = require("./db/models/index");
-const { startup, investor, round, roundinvestor } = db;
+const { startup, investor, round, RoundInvestor } = db;
 
 // initialize Controllers -> note the lowercase for the first word
 // Pass in models to perform operations on the database
@@ -21,8 +21,7 @@ const { startup, investor, round, roundinvestor } = db;
 const startupsController = new StartupsController(
   startup,
   round,
-  investor,
-  roundinvestor
+  RoundInvestor
 );
 const investorsController = new InvestorsController(investor, startup);
 
