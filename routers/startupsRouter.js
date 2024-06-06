@@ -57,22 +57,27 @@ class StartupsRouter {
 
     router.get(
       "/:startupId/roundInvestors/:roundId",
+      checkJwt,
       this.controller.getAllRoundInvestors.bind(this.controller)
     );
     router.get(
       "/:startupId/roundInvestors/:roundInvestorId",
+      checkJwt,
       this.controller.getOneRoundInvestor.bind(this.controller)
     );
     router.post(
       "/:startupId/roundInvestors",
+      checkJwt,
       this.controller.addOneRoundInvestor.bind(this.controller)
     );
     router.put(
       "/:startupId/roundInvestors/:roundInvestorId",
+      checkJwt,
       this.controller.editOneRoundInvestor.bind(this.controller)
     );
     router.delete(
       "/:startupId/roundInvestors/:roundId/:roundInvestorId",
+      checkJwt,
       this.controller.deleteOneRoundInvestor.bind(this.controller)
     );
     return router;
