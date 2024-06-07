@@ -76,7 +76,7 @@ class StartupsRouter {
       this.controller.editOneRoundInvestor.bind(this.controller)
     );
     router.delete(
-      "/:startupId/roundInvestors/:roundId/:roundInvestorId",
+      "/:startupId/roundInvestors/:roundInvestorId",
       checkJwt,
       this.controller.deleteOneRoundInvestor.bind(this.controller)
     );

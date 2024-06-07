@@ -188,6 +188,7 @@ class StartupsController extends BaseController {
   async editOneRoundInvestor(req, res) {
     const { roundInvestorId } = req.params;
     const { raised, committed } = req.body;
+    console.log(raised, committed);
     try {
       const roundInvestorToEdit = await this.RoundInvestorModel.findByPk(
         roundInvestorId
@@ -205,10 +206,10 @@ class StartupsController extends BaseController {
   }
 
   async deleteOneRoundInvestor(req, res) {
-    const { roundInvestorId, roundId } = req.params;
+    const { roundInvestorId } = req.params;
     try {
       const result = await this.RoundInvestorModel.destroy({
-        where: { investorId: roundInvestorId, round_id: roundId },
+        where: { id: roundInvestorId },
       });
       return res.json(`deleted.`);
     } catch (err) {
