@@ -1,10 +1,11 @@
 const BaseController = require("./baseController");
 
 class StartupsController extends BaseController {
-  constructor(model, roundModel, RoundInvestorModel) {
+  constructor(model, roundModel, RoundInvestorModel, investorModel) {
     super(model);
     this.roundModel = roundModel;
     this.RoundInvestorModel = RoundInvestorModel;
+    this.investorModel = investorModel;
   }
 
   async getOneStartup(req, res) {
@@ -148,6 +149,12 @@ class StartupsController extends BaseController {
     try {
       const result = await this.RoundInvestorModel.findAll({
         where: { round_id: roundId },
+        include: [
+          {
+            model: this.investorModel,
+            attributes: ["name", "type", "company", "email"],
+          },
+        ],
       });
       return res.json(result);
     } catch (err) {
@@ -169,8 +176,6 @@ class StartupsController extends BaseController {
 
   async addOneRoundInvestor(req, res) {
     const { raised, committed, roundId, investorId } = req.body;
-
-    console.log(`here`);
     try {
       const result = await this.RoundInvestorModel.create({
         roundId,
@@ -178,7 +183,6 @@ class StartupsController extends BaseController {
         raised,
         committed,
       });
-      console.log(`there`);
       return res.json(result);
     } catch (err) {
       return res.status(400).json({ error: true, msg: err });

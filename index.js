@@ -21,7 +21,8 @@ const { startup, investor, round, RoundInvestor } = db;
 const startupsController = new StartupsController(
   startup,
   round,
-  RoundInvestor
+  RoundInvestor,
+  investor
 );
 const investorsController = new InvestorsController(investor, startup);
 
