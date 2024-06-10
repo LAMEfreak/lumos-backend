@@ -24,7 +24,7 @@ module.exports = {
         },
       },
       raised: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       committed: {
         type: Sequelize.INTEGER,
