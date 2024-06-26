@@ -1,6 +1,6 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
 
 // =============== STREAM ================= //
 
@@ -37,7 +37,7 @@ const investorsController = new InvestorsController(investor, startup);
 const investorsRouter = new InvestorsRouter(investorsController).routes();
 const startupsRouter = new StartupsRouter(startupsController).routes();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 // Enable CORS access to this server
@@ -82,7 +82,7 @@ app.post("/stream/:userId", checkJwt, async (req, res) => {
     // providing a buffer to ensure that the "issued at" time is not in the future from the perspective of any system verifying the token.
     const issuedAt = Math.floor(Date.now() / 1000) - 60;
     const token = client.createToken(userId, expirationTime, issuedAt);
-    console.log("STREAM TOKEN", token);
+    // console.log("STREAM TOKEN", token);
     res.json(token);
   } catch (error) {
     console.log(error);
